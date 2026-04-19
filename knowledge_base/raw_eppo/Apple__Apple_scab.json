@@ -1,0 +1,20 @@
+{
+  "eppo_code": "VENTIN",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Venturia inaequalis (VENTIN) Menu Overview \u2192 Categorization Reporting Photos Documents Overview Code created in: 2002-03-30 Basic information EPPO Code: VENTIN Preferred name: Venturia inaequalis Authority: (Cooke) Winter Other scientific names Name Authority Cladosporium dendriticum Endostigme inaequalis (Cooke) Sydow Fusicladium dendriticum (Wallroth) Fuckel Fusicladium eriobotryae (Cavara) Saccardo Fusicladium pomi (Fries) Lind Fusicladium pyracanthae (G.Otth) Viennot-Bourgin Sphaerella inaequalis Cooke Spilocaea dendriticum (Wallroth) Fuckel Spilocaea pomi Fries Spilocaea pyracanthae (G.Otth) von Arx Spilosticta inaequalis (Cooke) Petr\u00e1k Common names Name Language black spot of apple English scab of apple English scab of loquat English scab of Pyracantha English Lagerschorf: Apfel German Schorf: Apfel German Schorf: Feuerdorn German Schorf: Japanische Mispel German tacon French tavelure du buisson ardent French tavelure du n\u00e9flier du Japon French tavelure du pommier French tavelure du sorbier French cribado del nispero del Jap\u00f3n Spanish cribado del zarzal Spanish moteado del manzano Spanish rona del manzano Spanish sarna del manzano Spanish \u043f\u0430\u0440\u0448\u0430 \u044f\u0431\u043b\u043e\u043d\u0438 Russian \u00e6bleskurv Danish obel\u0173 raupl\u0117s Lithuanian more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Order Venturiales      (\r\n      1VENTO      ) Family Venturiaceae      (\r\n      1VENTF      ) Genus Venturia      (\r\n      1VENTG      ) Species Venturia inaequalis      (\r\n      VENTIN      )",
+  "plant_context": {
+    "crop": "Apple",
+    "disease": "Apple scab",
+    "pathogen": "Venturia inaequalis"
+  },
+  "seed": {
+    "symptoms": "Olive-green to brown velvety spots on leaves; scabby, cracked lesions on fruit surface; premature defoliation in severe cases.",
+    "causes": "Fungal pathogen Venturia inaequalis; spreads via ascospores during wet spring weather; overwinters in fallen infected leaves.",
+    "treatment": "Apply fungicides (myclobutanil, captan, or mancozeb) at early green tip stage; repeat every 7-14 days during wet periods.",
+    "prevention": "Remove and destroy fallen leaves; plant resistant cultivars (e.g., Liberty, Freedom); prune for canopy airflow."
+  }
+}

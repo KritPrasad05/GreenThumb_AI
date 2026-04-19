@@ -1,0 +1,2300 @@
+openapi: 3.0.0
+info:
+  title: EPPO API - Global Database
+  description: >
+    API for accessing EPPO Codes and related information (data from EPPO Global Database).<br>
+    An API key is required to use this API. You can generate your token from the dashboard at https://data.eppo.int.<br><br>
+    **Rate Limiting (Effective 2025-10-01):**<br>
+    - Maximum 60 requests per IP address within a 10-second sliding window<br>
+    - Parallel requests are allowed but must respect the rate limit<br>
+    - Exceeding the limit will result in HTTP 429 (Too Many Requests) responses
+  version: 2.0.1 - 2026.01.20 1700
+servers:
+  - url: https://api.eppo.int/gd/v2
+  - url: https://api2025.eppo.dev:6443/gd/v2
+
+tags:
+  - name: General
+  - name: Taxons
+  - name: Taxon
+    description: Provides detailed taxonomic information, including classification, synonyms, and categorization of species.
+  - name: Country
+    description: Contains country-specific data, including geographical distribution, regulatory status, and relevant administrative units.
+  - name: RPPO
+    description: Provides information about Regional Plant Protection Organizations (RPPOs), including member countries and categorization data.
+  - name: Tools
+    description: Provides utility endpoints for querying EPPO data.
+  - name: Reporting Service
+    description: Provides access to EPPO Reporting Service, a monthly information report on events of phytosanitary concern.
+  - name: References
+    description: Provides access to reference materials, including scientific publications, distribution status, and documentation.
+
+paths:
+#  ---------------------------------------------
+  /status:
+    get:
+      tags:
+        - General
+      summary: Check API health
+      operationId: getStatus
+      #security: []
+      description: Returns current health status of EPPO DataService API and infrastructure
+      responses:
+        '200':
+          description: Success, all systems are up and running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  timestamp:
+                    type: integer
+                    description: Unix timestamp of the response
+                  version:
+                    type: string
+                    description: API version
+                    example: "2.0"
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/list:
+    get:
+      tags:
+        - Taxons
+      summary: Get list of Taxons
+      description: Retrieves a paginated list of taxons with metadata.
+      operationId: getGDTaxons
+      parameters:
+        - name: createdFromDate
+          in: query
+          description: >
+            List EPPO Codes created >= date.
+            If updatedFromDate is also provided, results match
+            createdFromDate OR updatedFromDate.
+          required: false
+          schema:
+            type: string
+            format: date
+            example: "2023-01-23"
+        - name: updatedFromDate
+          in: query
+          description: >
+            List EPPO Codes updated >= date.
+            If createdFromDate is also provided, results match
+            createdFromDate OR updatedFromDate.
+          required: false
+          schema:
+            type: string
+            format: date
+            example: "2023-06-01"
+        - name: orderBy
+          in: query
+          required: false
+          description: |
+            Order by Field :
+              * creation : creation order (default)
+              * datecreate : date create
+              * eppocode : EPPO Code
+          schema:
+            type: string
+            default: creation
+            enum:
+              - creation
+              - datecreate
+              - eppocode
+              - dateupdate
+        - name: orderAsc
+          in: query
+          description: Order by Ascending (default)
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: limit
+          in: query
+          description: Maximum number of taxons to return per page.
+          required: false
+          schema:
+            type: integer
+            default: 100
+            minimum: 1
+            maximum: 1000
+        - name: offset
+          in: query
+          description: Starting position of the first taxon to return (for pagination), Zero based.
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: A paginated list of taxons with pagination metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      offset:
+                        type: integer
+                        description: Current offset position
+                      limit:
+                        type: integer
+                        description: Maximum number of items per page
+                      total:
+                        type: integer
+                        description: Total number of taxons available
+                      count:
+                        type: integer
+                        description: Number of items in current response
+                  meta:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: Response timestamp
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        eppocode:
+                          $ref: '#/components/schemas/EPPOCode'
+                        is_active:
+                          type: boolean
+                          description: Whether the taxon is active
+                        datecreate:
+                          type: string
+                          format: date-time
+                          description: Creation date
+                        dateupdate:
+                          type: string
+                          format: date-time
+                          description: Last update date
+                        replacedby:
+                          $ref: '#/components/schemas/EPPOCode'
+                          nullable: true
+                          description: EPPO code that replaces this one (if deprecated)
+                        datatype:
+                          type: string
+                          nullable: true
+                          description: Data type classification
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/overview:
+    get:
+      tags:
+        - Taxon
+      summary: Get basic information about a taxon by EPPOCODE
+      description: Retrieves basic information about a taxon using its EPPOCode, including its preferred name, creation date, update date, and status.
+      operationId: getGDTaxon
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: Basic information about the taxon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonResponse'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/infos:
+    get:
+      tags:
+        - Taxon
+      summary: Get information about other information on EPPOCODE
+      description: Retrieves the number of records available for different types of information related to a taxon, including datasheets, categorization, distribution, pests, hosts, pathway pests, pathway hosts, photos, expertise, documents, and other related information.
+      operationId: getGDTaxonInfos
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: Count of available information for the taxon.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasheet:
+                    type: integer
+                    description: Number of datasheets available
+                  categorization:
+                    type: integer
+                    description: Number of categorization entries
+                  distribution:
+                    type: integer
+                    description: Number of distribution records
+                  pests:
+                    type: integer
+                    description: Number of pests records
+                  hosts:
+                    type: integer
+                    description: Number of hosts records
+                  pathwaypest:
+                    type: integer
+                    description: Number of pathway pest records
+                  pathwayhost:
+                    type: integer
+                    description: Number of pathway host records
+                  photos:
+                    type: integer
+                    description: Number of photos available
+                  expertise:
+                    type: integer
+                    description: Number of expertise records
+                  reporting:
+                    type: integer
+                    description: Number of reporting service articles
+                  documents:
+                    type: integer
+                    description: Number of documents available
+                  specimens:
+                    type: integer
+                    description: Number of specimens records
+                  vectorspests:
+                    type: integer
+                    description: Number of vectors pests records
+                  vectorshosts:
+                    type: integer
+                    description: Number of vectors hosts records
+                  eppolinks:
+                    type: integer
+                    description: Number of EPPO links
+                  bca:
+                    type: integer
+                    description: Number of BCA (Biological Control Agents) records
+                  bcao:
+                    type: integer
+                    description: Number of BCAO records
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/names:
+    get:
+      tags:
+        - Taxon
+      summary: Get all names for a taxon by EPPOCODE
+      description: Returns all known names for a given taxon, including preferred, other scientific names and alternative names in various languages.
+      operationId: getGDTaxonNames
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of names for the taxon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonArrayNamesResponse'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/taxonomy:
+    get:
+      tags:
+        - Taxon
+      summary: Get all taxonomy for a taxon by EPPOCODE
+      description: Provides the complete taxonomic classification of a taxon, including hierarchy levels such as kingdom, family, and genus.
+      operationId: getGDTaxonTaxonomy
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of taxonomy for the taxon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonArrayTaxonomy'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+
+  /taxons/taxon/{EPPOCODE}/categorization:
+    get:
+      tags:
+        - Taxon
+      summary: Get all categorization for a taxon by EPPOCODE
+      description: Retrieves the categorization of a taxon by country, including regulatory classifications (A1 list, A2 list), pest status, and other categorizations used by EPPO.
+      operationId: getGDTaxonCategorization
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of categorization for the taxon by country.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    continent_id:
+                      type: integer
+                      description: Continent identifier
+                    continent_name:
+                      type: string
+                      description: Continent name
+                    country_iso:
+                      $ref: '#/components/schemas/isoCountry'
+                    country_name:
+                      type: string
+                      description: Country name
+                    qlist:
+                      type: string
+                      description: EPPO list code (e.g., "1", "2"). Refer to /references/qList for possible values.
+                    qlist_label:
+                      type: string
+                      description: EPPO list label (e.g., "A1 list", "A2 list")
+                    year_add:
+                      type: integer
+                      description: Year added to the list
+                    year_delete:
+                      type: integer
+                      nullable: true
+                      description: Year deleted from the list
+                    year_transient:
+                      type: integer
+                      nullable: true
+                      description: Year marked as transient
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/kingdom:
+    get:
+      tags:
+        - Taxon
+      summary: Get kingdom of a taxon by EPPOCODE
+      description: Returns the kingdom classification of the specified taxon.
+      operationId: getGDTaxonKingdom
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: Kingdom information for the taxon.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eppocode:
+                    type: object
+                    properties:
+                      eppocode:
+                        $ref: '#/components/schemas/EPPOCode'
+                      prefname:
+                        type: string
+                        description: Preferred name of the kingdom
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+
+  /taxons/taxon/{EPPOCODE}/hosts:
+    get:
+      tags:
+        - Taxon
+      summary: Get all hosts for a taxon by EPPOCODE
+      description: Lists all host plants associated with the specified taxon.
+      operationId: getGDTaxonHosts
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of hosts for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the host
+                    class_id:
+                      type: integer
+                      description: Classification identifier. Refer to /references/pestHostClassification for possible values.
+                    class_label:
+                      type: string
+                      description: Classification label (e.g., "Major host", "Minor host")
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/pests:
+    get:
+      tags:
+        - Taxon
+      summary: Get all pests for a taxon by EPPOCODE
+      description: Retrieves a list of known pests that affect the specified taxon.
+      operationId: getGDTaxonPests
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: GOSHI
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of pests for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the pest
+                    class_id:
+                      type: integer
+                      description: Classification identifier. Refer to /references/pestHostClassification for possible values.
+                    class_label:
+                      type: string
+                      description: Classification label (e.g., "Major pest", "Minor pest")
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/vectors:
+    get:
+      tags:
+        - Taxon
+      summary: Get all vectors for a taxon by EPPOCODE
+      description: Retrieves a list of known vectors that transmit the specified taxon (usually a pathogen).
+      operationId: getGDTaxonVectors
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BYVMV0
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of vectors for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the vector
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+                    vectorclass_id:
+                      type: string
+                      description: Vector classification code (e.g., "K" for Known vector). Refer to /references/vectorClassification for possible values.
+                    vectorclass_label:
+                      type: string
+                      description: Vector classification label (e.g., "Known vector")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/vectorof:
+    get:
+      tags:
+        - Taxon
+      summary: Get all organisms for which this taxon is a vector
+      description: Retrieves a list of organisms (usually pathogens) for which the specified taxon acts as a vector.
+      operationId: getGDTaxonVectorOf
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of organisms for which this taxon is a vector.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the organism
+                    vectorclass_id:
+                      type: string
+                      description: Vector classification code (e.g., "K" for Known vector). Refer to /references/vectorClassification for possible values.
+                    vectorclass_label:
+                      type: string
+                      description: Vector classification label (e.g., "Known vector")
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/bca:
+    get:
+      tags:
+        - Taxon
+      summary: Get all BCA (Biological Control Agents) for a taxon by EPPOCODE
+      description: Retrieves a list of biological control agents that can be used to control the specified taxon (pest).
+      operationId: getGDTaxonBCA
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of biological control agents for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the biological control agent
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/bcaof:
+    get:
+      tags:
+        - Taxon
+      summary: Get all organisms for which this taxon is a BCA (Biological Control Agent)
+      description: Retrieves a list of organisms (pests) for which the specified taxon acts as a biological control agent.
+      operationId: getGDTaxonBCAOf
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: ENCAFO
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of organisms for which this taxon is a biological control agent.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the organism
+                    bibref:
+                      type: string
+                      description: Bibliographic references
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/photos:
+    get:
+      tags:
+        - Taxon
+      summary: Get all photos for a taxon by EPPOCODE
+      description: Retrieves a list of photos for the specified taxon.
+      operationId: getGDTaxonPhotos
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of photos for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    photo_id:
+                      type: integer
+                      description: Unique identifier for the photo
+                    lastmod:
+                      type: string
+                      format: date-time
+                      description: Last modification date
+                    descinfo:
+                      type: string
+                      description: Description of the photo
+                    authors:
+                      type: string
+                      description: Author(s) and copyright information
+                    tags:
+                      type: string
+                      nullable: true
+                      description: Tags associated with the photo (e.g., "{Adult}", "{Larva}")
+                    files:
+                      type: array
+                      description: Available file sizes for the photo
+                      items:
+                        type: object
+                        properties:
+                          size:
+                            type: string
+                            description: Image dimensions (e.g., "1024x0", "220x130")
+                          url:
+                            type: string
+                            description: URL to access the image file
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/reporting_articles:
+    get:
+      tags:
+        - Taxon
+      summary: Get all Reporting Service articles for a taxon by EPPOCODE
+      description: Retrieves a list of EPPO Reporting Service articles mentioning the specified taxon.
+      operationId: getGDTaxonReportingArticles
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of Reporting Service articles for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    article_id:
+                      type: integer
+                      description: Unique identifier for the article
+                    numarticle:
+                      type: string
+                      description: Article number within the issue
+                    reporting_id:
+                      type: integer
+                      description: Reporting Service issue identifier
+                    numrs:
+                      type: string
+                      description: Reporting Service issue number (e.g., "05")
+                    repyear:
+                      type: integer
+                      description: Reporting Service year
+                    title:
+                      type: string
+                      description: Article title
+                    datecreate:
+                      type: string
+                      format: date-time
+                      description: Creation date
+                    lastmodif:
+                      type: string
+                      format: date-time
+                      nullable: true
+                      description: Last modification date
+                    sources:
+                      type: string
+                      nullable: true
+                      description: Sources and references
+                    content:
+                      type: string
+                      description: Article content
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/documents:
+    get:
+      tags:
+        - Taxon
+      summary: Get all documents for a taxon by EPPOCODE
+      description: Retrieves a list of documents related to the specified taxon, including datasheets, PRAs, and other documentation (excluding EPPO standards which are available in a separate endpoint).
+      operationId: getGDTaxonDocuments
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: HELIVI
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of documents for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    document_id:
+                      type: integer
+                      description: Unique identifier for the document
+                    title:
+                      type: string
+                      description: Document title
+                    description:
+                      type: string
+                      nullable: true
+                      description: Document description
+                    pubdate:
+                      type: string
+                      format: date
+                      nullable: true
+                      description: Publication date
+                    category:
+                      type: string
+                      description: Document category (e.g., "PRA", "EPPO Datasheet", "Other")
+                    url:
+                      type: string
+                      description: URL to download the document
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/standards:
+    get:
+      tags:
+        - Taxon
+      summary: Get all EPPO Standards for a taxon by EPPOCODE
+      description: Retrieves a list of EPPO Standards related to the specified taxon, including phytosanitary measures, diagnostic protocols, and other standardized procedures.
+      operationId: getGDTaxonStandards
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          example: BEMITA
+          description: The EPPOCode of the taxon.
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of EPPO Standards for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    standard_id:
+                      type: integer
+                      description: Unique identifier for the standard
+                    title:
+                      type: string
+                      description: Standard title
+                    numstandard:
+                      type: string
+                      description: Standard reference number (e.g., "PM1/002(34)", "PM7/035(1)")
+                    files:
+                      type: array
+                      description: Available files for the standard
+                      items:
+                        type: object
+                        properties:
+                          filename:
+                            type: string
+                            description: File name
+                          lang:
+                            type: string
+                            description: Language code (e.g., "en", "fr", "ru")
+                          url:
+                            type: string
+                            description: URL to download the standard file
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /taxons/taxon/{EPPOCODE}/distribution:
+    get:
+      tags:
+        - Taxon
+      summary: Get all distribution for a taxon by EPPOCODE
+      description: Provides geographical distribution information for the specified taxon, including presence in different countries.
+      operationId: getGDTaxonDistribution
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode of the taxon.
+          example: BEMITA
+          schema:
+            $ref: '#/components/schemas/EPPOCode'
+      responses:
+        '200':
+          description: List of distribution countries for the taxon.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DistributionItem'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /country/{ISOCODE}/overview:
+    get:
+      tags:
+        - Country
+      summary: Get basic information about a country by ISOCODE
+      description: Returns basic information about a country, including ISO code, name, and associated continent.
+      operationId: getGDCountry
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: ISOCODE
+          in: path
+          required: true
+          description: The ISO country code.
+          example: FR
+          schema:
+            $ref: '#/components/schemas/isoCountry'
+      responses:
+        '200':
+          description: Basic country information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  country_iso:
+                    $ref: '#/components/schemas/isoCountry'
+                    description: ISO country code
+                  country_name:
+                    type: string
+                    description: Country name
+                  continent_id:
+                    type: integer
+                    description: Continent identifier
+                  continent_name:
+                    type: string
+                    description: Continent name
+                  states:
+                    type: array
+                    nullable: true
+                    description: List of states/provinces within the country
+                    items:
+                      type: object
+                      properties:
+                        state_id:
+                          type: string
+                          description: State/province code
+                        state_name:
+                          type: string
+                          description: State/province name
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /country/{ISOCODE}/categorization:
+    get:
+      tags:
+        - Country
+      summary: Get categorization for a country by ISOCODE
+      description: Returns the list of taxons with their regulatory categorization for the specified country.
+      operationId: getGDCountryCategorization
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: ISOCODE
+          in: path
+          required: true
+          description: The ISO country code.
+          example: FR
+          schema:
+            $ref: '#/components/schemas/isoCountry'
+      responses:
+        '200':
+          description: List of taxons with categorization for the country.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the taxon
+                    qlist:
+                      type: string
+                      description: EPPO list code. Refer to /references/qList for possible values.
+                    qlist_label:
+                      type: string
+                      description: EPPO list label
+                    year_add:
+                      type: integer
+                      description: Year added to the list
+                    year_del:
+                      type: integer
+                      nullable: true
+                      description: Year deleted from the list
+                    year_transient:
+                      type: integer
+                      nullable: true
+                      description: Year marked as transient
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /country/{ISOCODE}/presence:
+    get:
+      tags:
+        - Country
+      summary: Get presence data for a country by ISOCODE
+      description: Returns the list of taxons present in the specified country with their pest status and year information.
+      operationId: getGDCountryPresence
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: ISOCODE
+          in: path
+          required: true
+          description: The ISO country code.
+          example: FR
+          schema:
+            $ref: '#/components/schemas/isoCountry'
+      responses:
+        '200':
+          description: List of taxons present in the country.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    state_id:
+                      type: string
+                      nullable: true
+                      description: State/province code (null if country-level)
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the taxon
+                    peststatus:
+                      type: string
+                      description: Pest status code. Refer to /references/pestStatus for possible values.
+                    yr_situation:
+                      type: string
+                      nullable: true
+                      description: Year of the situation report
+                    yr_introd:
+                      type: string
+                      nullable: true
+                      description: Year of introduction
+                    yr_erad:
+                      type: string
+                      nullable: true
+                      description: Year of eradication
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /rppo/{RPPOCODE}/overview:
+    get:
+      tags:
+        - RPPO
+      summary: Get basic information about an RPPO by code
+      description: Returns basic information about a Regional Plant Protection Organization, including its acronym, full name, and member countries.
+      operationId: getGDRPPO
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: RPPOCODE
+          in: path
+          required: true
+          description: The RPPO code.
+          example: 9A
+          schema:
+            $ref: '#/components/schemas/RPPOCode'
+      responses:
+        '200':
+          description: RPPO information with member countries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rppo_code:
+                    $ref: '#/components/schemas/RPPOCode'
+                  rppo_acronym:
+                    type: string
+                    description: RPPO acronym
+                    example: EPPO
+                  rppo_name:
+                    type: string
+                    description: Full name of the RPPO
+                    example: European and Mediterranean Plant Protection Organization
+                  members:
+                    type: array
+                    description: List of member countries
+                    items:
+                      type: object
+                      properties:
+                        isocode:
+                          $ref: '#/components/schemas/isoCountry'
+                        country:
+                          type: string
+                          description: Country name
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /rppo/{RPPOCODE}/categorization:
+    get:
+      tags:
+        - RPPO
+      summary: Get categorization for an RPPO by code
+      description: Returns the list of taxons with their regulatory categorization for the specified Regional Plant Protection Organization.
+      operationId: getGDRPPOCategorization
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: RPPOCODE
+          in: path
+          required: true
+          description: The RPPO code.
+          example: 9A
+          schema:
+            $ref: '#/components/schemas/RPPOCode'
+      responses:
+        '200':
+          description: List of taxons with categorization for the RPPO.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    eppocode:
+                      $ref: '#/components/schemas/EPPOCode'
+                    prefname:
+                      type: string
+                      description: Preferred name of the taxon
+                    qlist:
+                      type: string
+                      description: EPPO list code. Refer to /references/qList for possible values.
+                    qlist_label:
+                      type: string
+                      description: EPPO list label
+                    year_add:
+                      type: integer
+                      description: Year added to the list
+                    year_del:
+                      type: integer
+                      nullable: true
+                      description: Year deleted from the list
+                    year_transient:
+                      type: integer
+                      nullable: true
+                      description: Year marked as transient
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /reportings/list:
+    get:
+      tags:
+        - Reporting Service
+      summary: Get all EPPO Reporting Service issues
+      description: Retrieves the list of all EPPO Reporting Service issues. The EPPO Reporting Service is a monthly information report on events of phytosanitary concern. It focuses on new geographical records, new host plants, new pests (including invasive alien plants), pests to be added to the EPPO Alert List, detection and identification methods etc.
+      operationId: getGDReportingsList
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of EPPO Reporting Service issues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reporting_id:
+                      type: integer
+                      description: Unique identifier for the Reporting Service issue
+                    numrs:
+                      type: string
+                      description: Issue number (e.g., "01", "02")
+                    datecreate:
+                      type: string
+                      format: date
+                      description: Creation date
+                    repyear:
+                      type: integer
+                      description: Year of the Reporting Service issue
+                    reference:
+                      type: string
+                      description: Full reference code (e.g., "Rse-2011-01")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /reportings/reporting/{reporting_id}:
+    get:
+      tags:
+        - Reporting Service
+      summary: Get a specific Reporting Service issue by ID
+      description: Retrieves detailed information about a specific EPPO Reporting Service issue, including all its articles.
+      operationId: getGDReporting
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: reporting_id
+          in: path
+          required: true
+          description: The ID of the Reporting Service issue
+          example: 10
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Reporting Service issue with its articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reporting_id:
+                    type: integer
+                    description: Unique identifier for the Reporting Service issue
+                  numrs:
+                    type: string
+                    description: Issue number (e.g., "01", "02")
+                  datecreate:
+                    type: string
+                    format: date
+                    description: Creation date
+                  repyear:
+                    type: integer
+                    description: Year of the Reporting Service issue
+                  reference:
+                    type: string
+                    description: Full reference code (e.g., "Rse-2011-01")
+                  articles:
+                    type: array
+                    description: List of articles in this issue
+                    items:
+                      type: object
+                      properties:
+                        article_id:
+                          type: integer
+                          description: Unique identifier for the article
+                        numarticle:
+                          type: string
+                          description: Article number within the issue
+                        title:
+                          type: string
+                          description: Article title
+                        datecreate:
+                          type: string
+                          format: date-time
+                          description: Creation date
+                        lastmodif:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Last modification date
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /reportings/article/{article_id}:
+    get:
+      tags:
+        - Reporting Service
+      summary: Get a specific article by ID
+      description: Retrieves the full content of a specific EPPO Reporting Service article.
+      operationId: getGDReportingArticle
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          description: The ID of the article
+          example: 234
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Article details with full content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  article_id:
+                    type: integer
+                    description: Unique identifier for the article
+                  numarticle:
+                    type: string
+                    description: Article number within the issue
+                  title:
+                    type: string
+                    description: Article title
+                  datecreate:
+                    type: string
+                    format: date-time
+                    description: Creation date
+                  lastmodif:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    description: Last modification date
+                  sources:
+                    type: string
+                    nullable: true
+                    description: Sources and references
+                  content:
+                    type: string
+                    description: Article content
+                  eppocodes:
+                    type: array
+                    description: List of EPPO codes mentioned in the article
+                    items:
+                      $ref: '#/components/schemas/EPPOCode'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/rppos:
+    get:
+      tags:
+        - References
+      summary: Get all RPPOs
+      description: Retrieves the list of all Regional Plant Protection Organizations (RPPOs) with their codes, acronyms, and full names.
+      operationId: getGDRPPOs
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of Regional Plant Protection Organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rppo_code:
+                      $ref: '#/components/schemas/RPPOCode'
+                    rppo_acronym:
+                      type: string
+                      description: RPPO acronym (e.g., "EPPO", "NAPPO", "APPPC")
+                    rppo_name:
+                      type: string
+                      description: Full name of the RPPO
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/qList:
+    get:
+      tags:
+        - References
+      summary: Get all EPPO quarantine and categorization lists
+      description: Retrieves all available EPPO list codes and labels (A1 list, A2 list, Alert list, Invasive Alien Plants, etc.).
+      operationId: getGDQList
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of EPPO quarantine and categorization lists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    qlist:
+                      type: string
+                      description: List code (e.g., "1", "2", "9", "A", "I", "J")
+                    qlist_label:
+                      type: string
+                      description: List label (e.g., "A1 list", "A2 list", "Alert list")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/distributionStatus:
+    get:
+      tags:
+        - References
+      summary: Get all distribution status codes
+      description: Retrieves all available distribution status codes and labels used in EPPO's classification.
+      operationId: getGDDistributionStatus
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of distribution status codes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    peststatus:
+                      type: string
+                      description: Distribution status code (e.g., "A", "B", "C")
+                    peststatus_label:
+                      type: string
+                      description: Distribution status label (e.g., "Present, widespread", "Absent, pest eradicated")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/pestHostClassification:
+    get:
+      tags:
+        - References
+      summary: List of pest/host classifications
+      description: Retrieves all available pest and host classification codes and labels used by EPPO.
+      operationId: Ref_PestHostClassification
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of pest/host classifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    class_id:
+                      type: integer
+                      description: Classification identifier
+                    class_label:
+                      type: string
+                      description: Classification label (e.g., "Major host", "Minor host", "Major pest")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/vectorClassification:
+    get:
+      tags:
+        - References
+      summary: List of vector classifications
+      description: Retrieves all available vector classification codes and labels used by EPPO.
+      operationId: Ref_VectorClassification
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of vector classifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    vectorclass_id:
+                      type: string
+                      description: Vector classification code (e.g., "K" for Known vector)
+                    vectorclass_label:
+                      type: string
+                      description: Vector classification label (e.g., "Known vector")
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+
+  /references/countries:
+    get:
+      tags:
+        - References
+      summary: Get all countries
+      description: The list of countries includes not only sovereign states but also administrative units such as RPPOs (Regional Plant Protection Organizations), institutions, and other relevant entities.
+      operationId: getGDCountries
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    country_iso:
+                      $ref: '#/components/schemas/isoCountry'
+                    country_name:
+                      type: string
+                      description: Country name
+                    states:
+                      type: array
+                      nullable: true
+                      description: List of states/provinces within the country
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+  #  ---------------------------------------------
+
+  /references/countriesStates:
+    get:
+      tags:
+        - References
+      summary: Get all countries States
+      description: Provides a list of states, provinces, and administrative regions within countries used by EPPO.
+      operationId: getGDCountriesStates
+      security:
+        - ApiKeyAuth: [ ]
+      responses:
+        '200':
+          description: List of countries States grouped by country ISO code
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      state_code:
+                        type: string
+                        description: State/province code
+                      state_name:
+                        type: string
+                        description: State/province name
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '404':
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+#  ---------------------------------------------
+
+  /tools/name2codes:
+    get:
+      tags:
+        - Tools
+      summary: Retrieve EPPO Codes by taxon name
+      description: >
+        Searches for taxon names and returns corresponding EPPO Codes. 
+        By default, only preferred names are considered.
+      operationId: getNameToCodes
+      security:
+        - ApiKeyAuth: [ ]
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: The name of the taxon to search for.
+          schema:
+            type: string
+        - name: onlyPreferred
+          in: query
+          required: false
+          description: If set to `true` (default), searches only within preferred names.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: A list of matching taxon names with their EPPO Codes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NameToCodeResponse'
+        '400':
+          $ref: "#/components/responses/BadRequest"
+        '401':
+          $ref: "#/components/responses/AuthError"
+        '403':
+          $ref: "#/components/responses/UnauthorizedError"
+        '429':
+          $ref: "#/components/responses/QuotaExceededError"
+        '500':
+          $ref: "#/components/responses/ServerError"
+
+#  ---------------------------------------------
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: An API key is required to use this API. You can generate your token from the dashboard at https://data.eppo.int.
+
+  responses:
+    AuthError:
+      description: API key is missing or invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "API key is invalid or inactive"
+    UnauthorizedError:
+      description: Insufficient permissions to access this resource
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    QuotaExceededError:
+      description: Rate limit exceeded - Too many requests
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 429
+              error:
+                type: string
+                example: "Too many requests"
+              message:
+                type: string
+                example: "Rate limit exceeded. Please try again later."
+              rate_limit:
+                type: object
+                properties:
+                  limit:
+                    type: integer
+                    description: Maximum number of requests allowed in the time window
+                    example: 60
+                  remaining:
+                    type: integer
+                    description: Number of requests remaining in the current window
+                    example: 0
+                  reset_time:
+                    type: integer
+                    description: Unix timestamp when the rate limit resets
+                    example: 1762946810
+                  retry_after:
+                    type: integer
+                    description: Number of seconds to wait before retrying
+                    example: 8
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 404
+              error:
+                type: string
+                example: "Route not found"
+    BadRequest:
+      description: Bad request - Invalid parameters or malformed request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: -1
+                description: Status code (-1 indicates error)
+              errors:
+                type: object
+                description: Object containing field-specific error messages
+                additionalProperties:
+                  type: string
+                example:
+                  isocode: "isocode: The country code is invalid or not found"
+                  eppocode: "eppocode: Invalid EPPO code format"
+    ServerError:
+      description: Internal Server Error, at least one component of the infrastructure is down
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 500
+              error:
+                type: string
+
+  schemas:
+    EPPOCode:
+      type: string
+      pattern: '^[0-9A-Z]{5,6}$'
+      example: BEMITA
+    isoCountry:
+      type: string
+      pattern: '^[0-9A-Z]{2}$'
+      example: FR
+      description: ISO country code. Refer to /references/countries for possible values.
+    RPPOCode:
+      type: string
+      pattern: '^9[A-Z]$'
+      example: 9A
+      description: RPPO code (Regional Plant Protection Organization). Refer to /references/rppos for possible values.
+    TaxonResponse:
+      type: object
+      example:
+        eppocode: "BEMITA"
+        datecreate: "2002-10-28 00:00:00"
+        lastupdate: "2002-10-28 00:00:00"
+        prefname: "Bemisia tabaci"
+        infos: null
+        replacedby: null
+        is_active: true
+        datatype: "GAI"
+      properties:
+        eppocode:
+          $ref: '#/components/schemas/EPPOCode'
+        datecreate:
+          type: string
+          format: date-time
+          description: Creation date
+        lastupdate:
+          type: string
+          format: date-time
+          description: Last update date
+        infos:
+          type: string
+          nullable: true
+          description: Additional information
+        replacedby:
+          $ref: '#/components/schemas/EPPOCode'
+          nullable: true
+          description: EPPO code that replaces this one (if deprecated)
+        prefname:
+          type: string
+          description: Preferred name of the taxon
+        is_active:
+          type: boolean
+          description: Whether the taxon is active
+        datatype:
+          type: string
+          nullable: true
+          description: Data type classification
+    TaxonName:
+      type: object
+      example:
+        name_id: 7222
+        lang_iso: "en"
+        country_iso: null
+        fullname: "tobacco whitefly"
+        preferred: false
+        author: null
+      properties:
+        name_id:
+          type: integer
+          description: Unique identifier for the name.
+        lang_iso:
+          type: string
+          description: ISO language code.
+        country_iso:
+          type: string
+          description: ISO country code, if applicable.
+          nullable: true
+        fullname:
+          type: string
+          description: Full name of the taxon.
+        preferred:
+          type: boolean
+          description: Indicates if this is the preferred name.
+        author:
+          type: string
+          description: Author of the taxon name, if applicable.
+          nullable: true
+    TaxonArrayNamesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/TaxonName'
+    TaxonTaxonomyItem:
+      type: object
+      example:
+        eppocode: "1ANIMK"
+        prefname: "Animalia"
+        level: 1
+        type: "Kingdom"
+      properties:
+        eppocode:
+          $ref: '#/components/schemas/EPPOCode'
+        prefname:
+          type: string
+          description: Preferred name.
+        level:
+          type: integer
+          description: Level position in the taxonomy.
+        type:
+          type: string
+          description: Type of taxon.
+    TaxonArrayTaxonomy:
+      type: array
+      items:
+        $ref: '#/components/schemas/TaxonTaxonomyItem'
+    TaxonArrayCategorization:
+      type: array
+
+    DistributionItem:
+      type: object
+      properties:
+        country_iso:
+          $ref: '#/components/schemas/isoCountry'
+          description: ISO country code
+        state_id:
+          type: string
+          nullable: true
+          description: State or subdivision code. Refer to /references/countriesStates for possible values.
+        peststatus:
+          type: string
+          description: Pest status code. Refer to /references/distributionStatus for possible values.
+        yr_situation:
+          type: string
+          nullable: true
+          description: Year of the pest status situation
+        yr_introd:
+          type: string
+          nullable: true
+          description: Year of introduction (if available)
+        yr_erad:
+          type: string
+          nullable: true
+          description: Year of eradication (if available)
+    NameToCodeResponse:
+      type: object
+      properties:
+        eppocode:
+          $ref: '#/components/schemas/EPPOCode'
+        preferred:
+          type: boolean
+          description: Indicates whether the searched name is the preferred name for this EPPO Code.
+
+

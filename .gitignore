@@ -1,0 +1,18 @@
+# Virtual Environment folders
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data files
+share/

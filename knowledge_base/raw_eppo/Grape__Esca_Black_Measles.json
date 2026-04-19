@@ -1,0 +1,20 @@
+{
+  "eppo_code": "PHMOCH",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Phaeomoniella chlamydospora (PHMOCH) Menu Overview \u2192 Documents Overview Code created in: 2007-03-10 Basic information EPPO Code: PHMOCH Preferred name: Phaeomoniella chlamydospora Authority: (W.Gams, Crous, M.J.Wingfield & Mugnai) Crous & W.Gams Other scientific names Name Authority Phaeoacremonium chlamydosporum W.Gams, Crous, M.J.Wingfield & Mugnai Common names Name Language esca of grapevine English petri decline of grapevine English esca de la vigne French Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Eurotiomycetes      (\r\n      1EUROC      ) Subclass Chaetothyriomycetidae      (\r\n      1KHAEL      ) Order Phaeomoniellales      (\r\n      1PHAEO      ) Family Phaeomoniellaceae      (\r\n      1PHAOF      ) Genus Phaeomoniella      (\r\n      1PHMOG      ) Species Phaeomoniella chlamydospora      (\r\n      PHMOCH      )",
+  "plant_context": {
+    "crop": "Grape",
+    "disease": "Esca (Black Measles)",
+    "pathogen": "Phaeomoniella chlamydospora"
+  },
+  "seed": {
+    "symptoms": "Interveinal chlorosis and necrosis creating 'tiger stripe' pattern on leaves; dark streaking inside woody tissue; fruit with dark spots.",
+    "causes": "Wood-rotting fungi complex including Phaeomoniella chlamydospora and Phaeoacremonium species; enters via pruning wounds.",
+    "treatment": "No fully curative treatment; wound protectants (sodium arsenite banned in EU); remove and burn affected wood.",
+    "prevention": "Protect pruning wounds with fungicide paste; prune during dry weather; avoid large wounds."
+  }
+}

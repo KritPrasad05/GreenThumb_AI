@@ -1,0 +1,20 @@
+{
+  "eppo_code": null,
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "",
+  "plant_context": {
+    "crop": "Cherry",
+    "disease": "Powdery mildew",
+    "pathogen": "Powdery mildew"
+  },
+  "seed": {
+    "symptoms": "White powdery fungal coating on young leaves, shoots, and fruit; leaf curling and distortion; reduced photosynthesis.",
+    "causes": "Fungus Podosphaera clandestina; thrives in warm dry days and cool nights; spreads via airborne conidia.",
+    "treatment": "Apply sulfur-based or potassium bicarbonate fungicides; sterol-inhibiting fungicides (myclobutanil) for severe infections.",
+    "prevention": "Ensure good air circulation; avoid excessive nitrogen; remove infected tissue."
+  }
+}

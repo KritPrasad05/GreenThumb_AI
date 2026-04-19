@@ -1,0 +1,327 @@
+[
+  {
+    "plant": "Apple",
+    "disease": "Apple scab",
+    "mapping": {
+      "primary": {
+        "eppo_code": "VENTIN",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Apple",
+    "disease": "Black rot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "GUIGBI",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Apple",
+    "disease": "Cedar apple rust",
+    "mapping": {
+      "primary": {
+        "eppo_code": "GYMNJV",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Cherry",
+    "disease": "Powdery mildew",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PODOXA",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Corn (maize)",
+    "disease": "Cercospora leaf spot Gray leaf spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "CERCZM",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Corn (maize)",
+    "disease": "Common rust",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PUCCSO",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Corn (maize)",
+    "disease": "Northern Leaf Blight",
+    "mapping": {
+      "primary": {
+        "eppo_code": "SETOTU",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Grape",
+    "disease": "Black rot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "GUIGBI",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Grape",
+    "disease": "Esca (Black Measles)",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PHMOCH",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Grape",
+    "disease": "Leaf blight (Isariopsis Leaf Spot)",
+    "mapping": {
+      "primary": {
+        "eppo_code": "MYCOPS",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Peach",
+    "disease": "Bacterial spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "XANTPF",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Pepper, bell",
+    "disease": "Bacterial spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "XANTPF",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Potato",
+    "disease": "Early blight",
+    "mapping": {
+      "primary": {
+        "eppo_code": "ALTESO",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Potato",
+    "disease": "Late blight",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PHYTIN",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Squash",
+    "disease": "Powdery mildew",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PODOXA",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Strawberry",
+    "disease": "Leaf scorch",
+    "mapping": {
+      "primary": {
+        "eppo_code": "DIPCEA",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Bacterial spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "XANTPF",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Early blight",
+    "mapping": {
+      "primary": {
+        "eppo_code": "ALTESO",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Late blight",
+    "mapping": {
+      "primary": {
+        "eppo_code": "PHYTIN",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Leaf Mold",
+    "mapping": {
+      "primary": {
+        "eppo_code": "FULVFU",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Septoria leaf spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "SEPTTR",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Spider mites Two-spotted spider mite",
+    "mapping": {
+      "primary": {
+        "eppo_code": "TETRUR",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Target Spot",
+    "mapping": {
+      "primary": {
+        "eppo_code": "CORYCA",
+        "name": null,
+        "preferred": true,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Tomato mosaic virus",
+    "mapping": {
+      "primary": {
+        "eppo_code": "TOMV00",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  },
+  {
+    "plant": "Tomato",
+    "disease": "Tomato Yellow Leaf Curl Virus",
+    "mapping": {
+      "primary": {
+        "eppo_code": "TYLCV0",
+        "name": null,
+        "preferred": false,
+        "type": null
+      },
+      "secondary": []
+    }
+  }
+]

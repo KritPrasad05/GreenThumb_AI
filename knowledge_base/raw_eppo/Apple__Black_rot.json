@@ -1,0 +1,20 @@
+{
+  "eppo_code": "BOTSOB",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Diplodia seriata (BOTSOB) Menu Overview \u2192 Categorization Documents Overview Code created in: 2002-04-10 Basic information EPPO Code: BOTSOB Preferred name: Diplodia seriata Authority: de Notaris Other scientific names Name Authority Amerodothis ilicis (Cooke) Theissen & Sydow Botryosphaeria ambigua (Schweinitz) Saccardo Botryosphaeria obtusa (Schweinitz) Shoemaker Diplodia pseudodiplodia Fuckel Melogramma ambiguum (Schweinitz) Berkeley Physalospora cupressi (Berkeley & Curtis) Saccardo Physalospora cydoniae G.Arnaud Physalospora malorum Shear, N. Stevens & Wilcox Physalospora obtusa (Schweinitz) Cooke Physalospora thyoidea (Cooke & Ellis) Saccardo Sphaeria obtusa Schweinitz Wallrothiella eunotiaespora (Cooke & Harkness) Berlese & Voglino Common names Name Language bark necrosis of pome fruits English black canker of apple English black rot of apple English canker of apple English dieback of grapevine English frogeye leaf spot of apple English Froschaugenkrankheit: Apfel German Rindenbrand: Obstgeh\u00f6lze German schwarzer Krebs: Obstgeh\u00f6lze German Schwarzf\u00e4ule: Apfel German black rot du cognassier French black rot du fraisier French black rot du pommier French chancre du pommier French faux black rot du poirier French faux black rot du pommier French pourriture noire du pommier French pourriture noire du prunier French black-rot del fresal Spanish black-rot del manzano Spanish black-rot del membrillo Spanish chancro del manzano Spanish falso black-rot del manzano Spanish falso black-rot del peral Spanish podredumbre negra del ciruelo Spanish podredumbre negra del manzano Spanish Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Order Botryosphaeriales      (\r\n      1BOTSO      ) Family Botryosphaeriaceae      (\r\n      1BOTSF      ) Genus Diplodia      (\r\n      1DIPDG      ) Species Diplodia seriata      (\r\n      BOTSOB      )",
+  "plant_context": {
+    "crop": "Apple",
+    "disease": "Black rot",
+    "pathogen": "Botryosphaeria obtusa"
+  },
+  "seed": {
+    "symptoms": "Circular brown lesions with purple margins on leaves ('frog-eye' spots); mummified black fruit; cankers on bark.",
+    "causes": "Fungus Botryosphaeria obtusa; infects through wounds and natural openings; spreads during warm, wet weather.",
+    "treatment": "Prune out infected wood and mummified fruit; apply captan or thiophanate-methyl fungicides.",
+    "prevention": "Remove dead wood and mummified fruit; avoid wounding trees; maintain tree vigor."
+  }
+}

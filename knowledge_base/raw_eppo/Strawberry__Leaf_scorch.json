@@ -1,0 +1,20 @@
+{
+  "eppo_code": "DIPCEA",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Diplocarpon fragariae (DIPCEA) Menu Overview \u2192 Categorization Documents Overview Code created in: 2001-10-12 Basic information EPPO Code: DIPCEA Preferred name: Diplocarpon fragariae Authority: (Libert) Rossman Other scientific names Name Authority Diplocarpon earlianum (Ellis & Everhart) F.A.Wolf Fabraea earliana (Ellis & Everhart) Seaver Gloeosporium fragariae (Libert) Montagne Leptothyrium fragariae Libert Marssoniella fragariae (Libert) von H\u00f6hnel Marssonina fragariae (Libert) Klebahn Peziza earliana Ellis & Everhart Common names Name Language leaf scorch of strawberry English leaf spot of strawberry English Rotfleckenkrankheit: Erdbeere German scorch des feuilles du fraisier French taches pourpres du fraisier French viruela de las hojas de la fresa Spanish Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Leotiomycetes      (\r\n      1LETOC      ) Order Helotiales      (\r\n      1HELOO      ) Family Drepanopezizaceae      (\r\n      1DRPPF      ) Genus Diplocarpon      (\r\n      1DIPCG      ) Species Diplocarpon fragariae      (\r\n      DIPCEA      )",
+  "plant_context": {
+    "crop": "Strawberry",
+    "disease": "Leaf scorch",
+    "pathogen": "Diplocarpon earlianum"
+  },
+  "seed": {
+    "symptoms": "Irregular dark purple spots on leaves; central tissue dies giving scorched appearance; severe infection leads to defoliation.",
+    "causes": "Fungus Diplocarpon earlianum; spreads via rain splash; favored by warm, wet conditions.",
+    "treatment": "Captan or myclobutanil fungicides; remove infected leaves.",
+    "prevention": "Plant in well-drained sites; avoid overhead irrigation; use disease-free transplants; mulch to reduce splash."
+  }
+}

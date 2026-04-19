@@ -1,0 +1,23 @@
+{
+  "eppo_code": "PHYTIN",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [
+    "",
+    "* Coca Morante M (2016) Disease note: first records of potato late blight caused by Phytophthora infestans in Bolivia.  Journal of Plant Pathology and Microbiology 7(8), 374. http://www.omicsonline.org/open-access/disease-note-first-records-of-potato-late-blight-caused-by-phytophthora-infestans-in-bolivia-2157-7471-1000374.pdf\n\n* Cox AE, Large EC (1960) Potato late blight epidemics throughout the world. Washington DC, USA: US Government Printing Office.\n\n* Day JP, Wattier RAM, Shaw DS, Shattock RC (2004) Phenotypic and genotypic diversity in Phytophthora infestans on potato in Great Britain, 1995-98. Plant Pathology 53(3), 303-315. http://www.blackwellpublishing.com/ppa"
+  ],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Phytophthora infestans (PHYTIN) Menu Overview \u2192 Host plants Categorization Reporting Photos Documents EPPO links Overview Code created in: 2002-11-29 Basic information EPPO Code: PHYTIN Preferred name: Phytophthora infestans Authority: (Montagne) de Bary Common names Name Language downy mildew of potato English late blight of potato English late blight of tomato English Braunf\u00e4ule: Kartoffel German Braunf\u00e4ule: Tomate German Krautf\u00e4ule: Tomate German Kraut- und Knollenf\u00e4ule: Kartoffel German mildiou de la pomme de terre French mildiou de la tomate French mildi\u00fa de la patata Spanish mildi\u00fa del tomate Spanish tiz\u00f3n tardio Spanish \u0444\u0438\u0442\u043e\u0444\u0442\u043e\u0440\u043e\u0437 \u043a\u0430\u0440\u0442\u043e\u0444\u0435\u043b\u044f Russian kartoffelskimmel Danish bulvi\u0173 maras Lithuanian more photos... Taxonomy Kingdom Chromista      (\r\n      1CHROK      ) Phylum Oomycota      (\r\n      1PSDFP      ) Class Oomycetes      (\r\n      1OOMYC      ) Order Peronosporales      (\r\n      1PEROO      ) Family Peronosporaceae      (\r\n      1PEROF      ) Genus Phytophthora      (\r\n      1PHYTG      ) Species Phytophthora infestans      (\r\n      PHYTIN      )",
+  "plant_context": {
+    "crop": "Tomato",
+    "disease": "Late blight",
+    "pathogen": "Phytophthora infestans"
+  },
+  "seed": {
+    "symptoms": "Greasy gray-green water-soaked patches on leaves; white sporulation on undersides; rapid brown-black collapse of tissue; firm dark fruit lesions.",
+    "causes": "Oomycete Phytophthora infestans; same pathogen as potato late blight; spreads explosively in cool, humid conditions.",
+    "treatment": "Fungicides with metalaxyl, dimethomorph, or mancozeb; destroy infected plants immediately.",
+    "prevention": "Resistant varieties; destroy infected debris; avoid wetting foliage; early season planting."
+  }
+}

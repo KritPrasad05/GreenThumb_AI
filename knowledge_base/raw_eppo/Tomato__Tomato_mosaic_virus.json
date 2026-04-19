@@ -1,0 +1,20 @@
+{
+  "eppo_code": "TOMV00",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Tobamovirus tomatotessellati (TOMV00) Menu Overview \u2192 Categorization Reporting Photos Documents EPPO links Overview Code created in: 2000-12-10 Basic information EPPO Code: TOMV00 Preferred name: Tobamovirus tomatotessellati Other scientific names Name Authority Tomato mosaic tobamovirus Tomato mosaic virus ToMV Common names Name Language tMV - strain: tomato English tomato mosaic English Tomatenmosaikvirus German more photos... Taxonomy Kingdom Viruses and viroids      (\r\n      1VIRUK      ) Category Riboviria      (\r\n      1RIBVD      ) Category Orthornavirae      (\r\n      1ORTVA      ) Phylum Kitrinoviricota      (\r\n      1KITVP      ) Class Alsuviricetes      (\r\n      1ALSVC      ) Order Martellivirales      (\r\n      1MARVO      ) Family Virgaviridae      (\r\n      1VIRGF      ) Genus Tobamovirus      (\r\n      1TOBAG      ) Species Tobamovirus tomatotessellati      (\r\n      TOMV00      )",
+  "plant_context": {
+    "crop": "Tomato",
+    "disease": "Tomato mosaic virus",
+    "pathogen": "Tomato mosaic virus"
+  },
+  "seed": {
+    "symptoms": "Mosaic pattern of light and dark green on leaves; leaf distortion and blistering; stunted growth; fruit with internal browning.",
+    "causes": "Tomato mosaic virus (ToMV); transmitted mechanically via contaminated tools, hands, and infected seed; highly stable in plant debris.",
+    "treatment": "No cure once infected; remove and destroy infected plants; disinfect tools with 10% bleach or trisodium phosphate solution.",
+    "prevention": "Use certified virus-free seed; resistant varieties (Tm-2 gene); wash hands before handling plants."
+  }
+}

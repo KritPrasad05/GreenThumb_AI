@@ -1,0 +1,20 @@
+{
+  "eppo_code": "PODOXA",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Podosphaera xanthii (PODOXA) Menu Overview \u2192 Photos Documents Overview Code created in: 2007-07-19 Basic information EPPO Code: PODOXA Preferred name: Podosphaera xanthii Authority: (Castagne) Braun & Shishkoff Other scientific names Name Authority Oidium citrulli Yen & Wang Sphaerotheca cucurbitae (Jaczewski) Zhao Sphaerotheca fuliginea f. cucurbitae Jaczewski Common names Name Language powdery mildew of cucurbits English Mehltau: Gurke German Mehltau: K\u00fcrbisgew\u00e4chse German o\u00efdium des cucurbitac\u00e9es French o\u00eddio de las cucurbit\u00e1ceas Spanish stekelnootmeeldauw Dutch more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Leotiomycetes      (\r\n      1LETOC      ) Order Erysiphales      (\r\n      1ERYSO      ) Family Erysiphaceae      (\r\n      1ERYSF      ) Genus Podosphaera      (\r\n      1PODOG      ) Species Podosphaera xanthii      (\r\n      PODOXA      )",
+  "plant_context": {
+    "crop": "Squash",
+    "disease": "Powdery mildew",
+    "pathogen": "Podosphaera xanthii"
+  },
+  "seed": {
+    "symptoms": "White powdery fungal patches on upper and lower leaf surfaces; yellowing and premature senescence of leaves.",
+    "causes": "Fungus Podosphaera xanthii; unlike most powdery mildews, does NOT require leaf wetness; spread by airborne spores.",
+    "treatment": "Sulfur, potassium bicarbonate, or triazole fungicides; neem oil as organic option.",
+    "prevention": "Plant resistant varieties; maintain plant spacing for airflow; avoid excessive nitrogen fertilization."
+  }
+}

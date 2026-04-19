@@ -1,0 +1,20 @@
+{
+  "eppo_code": "MYCOPS",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Pseudocercospora vitis (MYCOPS) Menu Overview \u2192 Categorization EPPO links Overview Code created in: 2007-05-12 Basic information EPPO Code: MYCOPS Preferred name: Pseudocercospora vitis Authority: (L\u00e9veill\u00e9) Spegazzini Other scientific names Name Authority Cercospora viticola (Cesati) Saccardo Cercospora vitis Saccardo Cladosporium vitis (L\u00e9veill\u00e9) Saccardo Graphium clavisporum Berkeley & M.A. Curtis Isariopsis clavispora (Berkeley & Curtis) Saccardo Isariopsis vitis L\u00e9veill\u00e9 Phaeoisariopsis vitis (L\u00e9veill\u00e9) Sawada Common names Name Language leaf spot of grapevine English Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Dothideomycetidae      (\r\n      1DTHDL      ) Order Mycosphaerellales      (\r\n      1MYCPO      ) Family Mycosphaerellaceae      (\r\n      1MYCOF      ) Genus Pseudocercospora      (\r\n      1PSCSG      ) Species Pseudocercospora vitis      (\r\n      MYCOPS      )",
+  "plant_context": {
+    "crop": "Grape",
+    "disease": "Leaf blight (Isariopsis Leaf Spot)",
+    "pathogen": "Isariopsis clavispora"
+  },
+  "seed": {
+    "symptoms": "Irregular dark brown spots on leaves, often with lighter centers; defoliation in severe cases affecting fruit maturation.",
+    "causes": "Fungus Isariopsis clavispora (syn. Pseudocercospora vitis); favored by warm humid conditions.",
+    "treatment": "Copper-based or mancozeb fungicides; maintain spray schedule with other grape disease programs.",
+    "prevention": "Canopy management for airflow; remove infected debris."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "eppo_code": "XANTRB",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Xanthomonas arboricola (XANTRB) Menu Overview \u2192 Overview Code created in: 2022-11-08 Basic information EPPO Code: XANTRB Preferred name: Xanthomonas arboricola Authority: Vauterin et al. Propose photo Taxonomy Kingdom Bacteria      (\r\n      1BACTK      ) Phylum Proteobacteria      (\r\n      1PROBP      ) Class Gammaproteobacteria      (\r\n      1GAMBC      ) Order Lysobacterales      (\r\n      1LYSOO      ) Family Lysobacteraceae      (\r\n      1LYSOF      ) Genus Xanthomonas      (\r\n      1XANTG      ) Species Xanthomonas arboricola      (\r\n      XANTRB      )",
+  "plant_context": {
+    "crop": "Peach",
+    "disease": "Bacterial spot",
+    "pathogen": "Xanthomonas arboricola"
+  },
+  "seed": {
+    "symptoms": "Water-soaked spots on leaves becoming angular necrotic lesions; fruit with sunken, dark, cracked lesions; shot-hole appearance on leaves.",
+    "causes": "Bacterium Xanthomonas arboricola pv. pruni; spreads through rain splash and wind during wet weather.",
+    "treatment": "Copper-based bactericides applied preventively; oxytetracycline where permitted.",
+    "prevention": "Plant resistant varieties; avoid overhead irrigation; prune for airflow; windbreaks to reduce spread."
+  }
+}

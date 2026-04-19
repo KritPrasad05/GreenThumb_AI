@@ -1,0 +1,20 @@
+{
+  "eppo_code": "CORYCA",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Corynespora cassiicola (CORYCA) Menu Overview \u2192 Photos Documents Overview Code created in: 2002-03-11 Basic information EPPO Code: CORYCA Preferred name: Corynespora cassiicola Authority: (Berkeley & Curtis) Wei Other scientific names Name Authority Cercospora melonis Cooke Cercospora vignicola Kawamura Corynespora melonis (Cooke) Saccardo Helminthosporium cassiicola Berkeley & Curtis Helminthosporium papayae Sydow Helminthosporium vignae Olive Helminthosporium vignicola (Kawamura) Olive Common names Name Language blotch disease of cucurbits English fruit spot of tomato English leaf spot of cotton English leaf spot of tobacco English leaf spot of tomato English target spot of cucurbits English target spot of soybean English Blattbrand: K\u00fcrbisgew\u00e4chse German Blattfleckenkrankheit: Baumwolle German Blattfleckenkrankheit: K\u00fcrbisgew\u00e4chse German cercosporiose du melon French chamuscado de las hojas del mel\u00f3n Spanish mancha foliar de las cucurbit\u00e1ceas Spanish Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Pleosporomycetidae      (\r\n      1PLEOL      ) Order Pleosporales      (\r\n      1PLEOO      ) Family Corynesporascaceae      (\r\n      1CRCAF      ) Genus Corynespora      (\r\n      1CORYG      ) Species Corynespora cassiicola      (\r\n      CORYCA      )",
+  "plant_context": {
+    "crop": "Tomato",
+    "disease": "Target Spot",
+    "pathogen": "Corynespora cassiicola"
+  },
+  "seed": {
+    "symptoms": "Brown circular lesions with concentric rings and yellow halos on leaves; dark brown fruit lesions; defoliation under severe infection.",
+    "causes": "Fungus Corynespora cassiicola; thrives in warm, humid, poorly ventilated conditions.",
+    "treatment": "Fungicides (azoxystrobin, difenoconazole); remove infected plant debris.",
+    "prevention": "Crop rotation; canopy management; avoid overhead irrigation."
+  }
+}

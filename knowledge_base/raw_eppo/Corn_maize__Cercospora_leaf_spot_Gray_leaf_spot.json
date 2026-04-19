@@ -1,0 +1,20 @@
+{
+  "eppo_code": "CERCZM",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Cercospora zeae-maydis (CERCZM) Menu Overview \u2192 EPPO links Overview Code created in: 2002-03-02 Basic information EPPO Code: CERCZM Preferred name: Cercospora zeae-maydis Authority: Tehon & E.Y.Daniels Common names Name Language grey leaf spot of maize English Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Dothideomycetidae      (\r\n      1DTHDL      ) Order Mycosphaerellales      (\r\n      1MYCPO      ) Family Mycosphaerellaceae      (\r\n      1MYCOF      ) Genus Cercospora      (\r\n      1CERCG      ) Species Cercospora zeae-maydis      (\r\n      CERCZM      )",
+  "plant_context": {
+    "crop": "Corn (maize)",
+    "disease": "Cercospora leaf spot Gray leaf spot",
+    "pathogen": "Cercospora zeae-maydis"
+  },
+  "seed": {
+    "symptoms": "Rectangular gray to tan lesions with distinct borders running parallel to leaf veins; lesions may coalesce killing large leaf areas.",
+    "causes": "Fungus Cercospora zeae-maydis; overwinters in crop residue; favored by warm, humid conditions and extended dew periods.",
+    "treatment": "Foliar fungicides (strobilurins, triazoles) applied at or before tasseling.",
+    "prevention": "Rotate crops; till residue; plant resistant hybrids; use reduced tillage cautiously in high-risk areas."
+  }
+}

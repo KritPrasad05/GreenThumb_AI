@@ -1,0 +1,20 @@
+{
+  "eppo_code": "XANTEV",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Xanthomonas euvesicatoria (XANTEV) Menu Overview \u2192 Overview Code created in: 2022-11-08 Basic information EPPO Code: XANTEV Preferred name: Xanthomonas euvesicatoria Authority: Jones et al. Propose photo Taxonomy Kingdom Bacteria      (\r\n      1BACTK      ) Phylum Proteobacteria      (\r\n      1PROBP      ) Class Gammaproteobacteria      (\r\n      1GAMBC      ) Order Lysobacterales      (\r\n      1LYSOO      ) Family Lysobacteraceae      (\r\n      1LYSOF      ) Genus Xanthomonas      (\r\n      1XANTG      ) Species Xanthomonas euvesicatoria      (\r\n      XANTEV      )",
+  "plant_context": {
+    "crop": "Pepper, bell",
+    "disease": "Bacterial spot",
+    "pathogen": "Xanthomonas euvesicatoria"
+  },
+  "seed": {
+    "symptoms": "Small water-soaked lesions on leaves turning necrotic with yellow halos; raised, scabby spots on fruit; defoliation.",
+    "causes": "Bacterium Xanthomonas euvesicatoria; spread by rain splash, contaminated seed, and infected transplants.",
+    "treatment": "Copper hydroxide sprays; avoid working in wet fields; remove infected plant debris.",
+    "prevention": "Use certified disease-free seed; copper seed treatments; resistant varieties; crop rotation."
+  }
+}

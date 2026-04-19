@@ -1,0 +1,23 @@
+{
+  "eppo_code": "GUIGBI",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [
+    "",
+    "* Szab\u00f3 M, Csik\u00e1sz-Krizsics A, Dula T, Farkas E, Roznik D, Kozma P, De\u00e1k T (2023) Black rot of grapes (Guignardia bidwellii)\u2014a comprehensive overview. Horticulturae 9(2), 130. https://doi.org/10.3390/horticulturae9020130"
+  ],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Phyllosticta ampelicida (GUIGBI) Menu Overview \u2192 Host plants Categorization Documents EPPO links Overview Code created in: 2002-04-10 Basic information EPPO Code: GUIGBI Preferred name: Phyllosticta ampelicida Authority: (Engelmann) van der Aa Other scientific names Name Authority Guignardia bidwellii (Ellis) Viala & Ravaz Naemospora amplecida Engelmann Sphaeria bidwellii Ellis Common names Name Language black rot of grapevine English Schwarzf\u00e4ule: Traube German black rot de la vigne French nuile de la vigne French pourriture noire de la vigne French black-rot de la vid Spanish podredumbre negra de la vid Spanish podredumbre seca de la vid Spanish Propose photo Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Order Botryosphaeriales      (\r\n      1BOTSO      ) Family Phyllostictaceae      (\r\n      1PHYCF      ) Genus Phyllosticta      (\r\n      1PHYSG      ) Species Phyllosticta ampelicida      (\r\n      GUIGBI      )",
+  "plant_context": {
+    "crop": "Grape",
+    "disease": "Black rot",
+    "pathogen": "Guignardia bidwellii"
+  },
+  "seed": {
+    "symptoms": "Small tan spots with dark brown margins on leaves; infected berries turn brown then hard, black, and mummified.",
+    "causes": "Fungus Guignardia bidwellii; overwinters in mummified berries and cane lesions; spreads during warm, wet weather.",
+    "treatment": "Apply myclobutanil, mancozeb, or captan from early shoot growth through veraison.",
+    "prevention": "Remove mummified berries and infected canes; improve canopy airflow through pruning."
+  }
+}

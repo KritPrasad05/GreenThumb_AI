@@ -1,0 +1,20 @@
+{
+  "eppo_code": "PUCCSO",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Puccinia sorghi (PUCCSO) Menu Overview \u2192 Photos Documents Overview Code created in: 2002-02-23 Basic information EPPO Code: PUCCSO Preferred name: Puccinia sorghi Authority: Schweinitz Other scientific names Name Authority Puccinia maydis Berenger Puccinia zeae Berenger Common names Name Language common rust of maize English rust of maize English Rost: Mais German rouille du ma\u00efs French roya del ma\u00edz Spanish ma\u00efsroest Dutch more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Basidiomycota      (\r\n      1BASIP      ) Class Pucciniomycotina      (\r\n      1TELIC      ) Subclass Pucciniomycetes      (\r\n      1PUCCL      ) Order Pucciniales      (\r\n      1UREDO      ) Family Pucciniaceae      (\r\n      1PUCCF      ) Genus Puccinia      (\r\n      1PUCCG      ) Species Puccinia sorghi      (\r\n      PUCCSO      )",
+  "plant_context": {
+    "crop": "Corn (maize)",
+    "disease": "Common rust",
+    "pathogen": "Puccinia sorghi"
+  },
+  "seed": {
+    "symptoms": "Small, circular to elongate, brick-red to brown pustules (uredia) on both leaf surfaces; severe infections cause leaf yellowing.",
+    "causes": "Fungus Puccinia sorghi; airborne urediniospores spread from southern overwintering sites; favored by cool, moist weather.",
+    "treatment": "Foliar fungicides (triazoles, strobilurins) most effective when applied early.",
+    "prevention": "Plant resistant hybrids; early planting to escape peak spore dispersal periods."
+  }
+}

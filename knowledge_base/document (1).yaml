@@ -1,0 +1,268 @@
+openapi: 3.0.0
+info:
+  title: EPPO Global Database API V1
+  version: "1.0"
+  description: |
+    **⚠️ OBSOLETE - These APIs are deprecated**
+
+    These V1 APIs remain online during the migration period to V2 and will be maintained until **May 1st, 2026**.
+
+    **Authentication tokens:**
+    - Tokens created before **December 7th, 2025** continue to work with these V1 APIs
+    - It is no longer possible to create new tokens compatible with V1 APIs using the current interface
+    - For new integrations, please use the V2 APIs
+
+    URL root for all REST API: https://data.eppo.int/api/rest/1.0
+
+    On each of your API requests add your unique token using the **"authtoken"** parameter.
+
+    Example to get information about Bemisia tabaci:
+    https://data.eppo.int/api/rest/1.0/taxon/BEMITA?authtoken=YOUR_TOKEN
+servers:
+  - url: https://data.eppo.int/api/rest/1.0
+components:
+  securitySchemes:
+    authtoken:
+      type: apiKey
+      name: authtoken
+      in: query
+security:
+  - authtoken: []
+paths:
+  /taxon/{EPPOCODE}:
+    get:
+      tags:
+        - taxon
+      summary: Get basic informations about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: BEMITA
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/names:
+    get:
+      tags:
+        - taxon
+      summary: Get all names about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: BEMITA
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/taxonomy:
+    get:
+      tags:
+        - taxon
+      summary: Get taxonomy about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: BEMITA
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/categorization:
+    get:
+      tags:
+        - taxon
+      summary: Get categorization about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: BEMITA
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/hosts:
+    get:
+      tags:
+        - taxon
+      summary: Get hosts about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: BEMITA
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/pests:
+    get:
+      tags:
+        - taxon
+      summary: Get pests about {EPPOCODE}
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: SOLTU
+      responses:
+        '200':
+          description: not yet documented
+
+  /taxon/{EPPOCODE}/kingdom:
+    get:
+      tags:
+        - taxon
+      summary: Get the {EPPOCODE} kingdom
+      parameters:
+        - name: EPPOCODE
+          in: path
+          required: true
+          description: The EPPOCode
+          schema:
+            type: string
+            default: SOLTU
+      responses:
+        '200':
+          description: |-
+            Return object containing:<br>
+            <ul>
+            <li>codeid</li>
+            <li>eppocode</li>
+            <li>status</li>
+            </ul>
+
+  /country/{ISOCODE}:
+    get:
+      tags:
+        - country
+      summary: Get basic informations about {ISOCODE}
+      parameters:
+        - name: ISOCODE
+          in: path
+          required: true
+          description: The ISOCODE
+          schema:
+            type: string
+            default: FR
+      responses:
+        '200':
+          description: not yet documented
+
+  /tools/codes2prefnames:
+    post:
+      tags:
+        - tools
+      summary: Search preferred names from EPPOCodes list
+      parameters:
+        - name: intext
+          in: query
+          required: true
+          description: list of eppocode, split by |
+          schema:
+            type: string
+            default: BEMITA|LIBEAF|TOTO|DROSSU
+      responses:
+        '200':
+          description: not yet documented
+
+  /tools/prefnames2codes:
+    post:
+      tags:
+        - tools
+      summary: Search EPPOCodes from preferred names list
+      parameters:
+        - name: intext
+          in: query
+          required: true
+          description: list of names, split by |
+          schema:
+            type: string
+            default: Fraxinus anomala|Tobacco ringspot virus|invalide name|Sequoiadendron giganteum
+      responses:
+        '200':
+          description: not yet documented
+
+  /tools/names2codes:
+    post:
+      tags:
+        - tools
+      summary: Search EPPOCodes from scientific names, synonyms or common names list
+      parameters:
+        - name: intext
+          in: query
+          required: true
+          description: list of names, split by |
+          schema:
+            type: string
+            default: Fraxinus anomala|Tobacco ringspot virus|invalide name|Sequoiadendron giganteum
+      responses:
+        '200':
+          description: not yet documented
+
+  /tools/search:
+    get:
+      tags:
+        - tools
+      summary: Search name or code
+      parameters:
+        - name: kw
+          in: query
+          required: true
+          description: Keyword to search
+          schema:
+            type: string
+            default: Bemisia
+        - name: searchfor
+          in: query
+          required: true
+          description: "1=Names or EPPO codes, 2=Preferred names only, 3=Names only, 4=EPPO codes only"
+          schema:
+            type: string
+            default: "1"
+        - name: lang
+          in: query
+          required: false
+          description: filter for this lang (iso639-2), empty will search on all langage
+          schema:
+            type: string
+            default: ""
+        - name: searchmode
+          in: query
+          required: true
+          description: Specify how to search. 1=Whole word,2=Starting with...,3=Containing the word
+          schema:
+            type: string
+            default: "1"
+        - name: typeorg
+          in: query
+          required: false
+          description: Search into specific group of code. 0=All,1=Plant (Species level),2=Animal (Species level),3=Microorganism (Species level),4=Animal taxonomic group (Taxonomic group level),5=Microorganism taxonomic group (Taxonomic group level),6=Plant taxonomic group (Taxonomic group level),7=Non-taxonomic group,8=Commodity
+          schema:
+            type: string
+            default: "0"
+      responses:
+        '200':
+          description: not yet documented

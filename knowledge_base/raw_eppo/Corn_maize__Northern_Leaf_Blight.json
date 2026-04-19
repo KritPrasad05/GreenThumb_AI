@@ -1,0 +1,20 @@
+{
+  "eppo_code": "SETOTU",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Exserohilum turcicum (SETOTU) Menu Overview \u2192 Photos Documents Overview Code created in: 2002-02-03 Basic information EPPO Code: SETOTU Preferred name: Exserohilum turcicum Authority: (Passerini) K.J.Leonard & E.G.Suggs Other scientific names Name Authority Bipolaris turcica (Passerini) Shoemaker Bipolaris turcicum Shoemaker Drechslera turcica Subramanian & Jain Helminthosporium inconspicuum Cooke & Ellis Helminthosporium turcicum Passerini Setosphaeria turcica (Luttrell) K.J.Leonard & E.G.Suggs Trichometasphaeria turcica Luttrell Common names Name Language leaf blight of maize English leaf blight of sorghum English northern corn leaf blight English northern leaf blight of maize English Blattd\u00fcrre: Mais German Streifenkrankheit: Mais German br\u00fblure du ma\u00efs French br\u00fblure helminthosporienne du ma\u00efs French helminthosporiose du ma\u00efs French suie du ma\u00efs French tiz\u00f3n de las hojas: ma\u00edz Spanish kukur\u016bz\u0173 dry\u017elig\u0117 Lithuanian more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Pleosporomycetidae      (\r\n      1PLEOL      ) Order Pleosporales      (\r\n      1PLEOO      ) Family Pleosporaceae      (\r\n      1PLEOF      ) Genus Exserohilum      (\r\n      1EXSEG      ) Species Exserohilum turcicum      (\r\n      SETOTU      )",
+  "plant_context": {
+    "crop": "Corn (maize)",
+    "disease": "Northern Leaf Blight",
+    "pathogen": "Exserohilum turcicum"
+  },
+  "seed": {
+    "symptoms": "Long (up to 15 cm), cigar-shaped gray-green to tan lesions on leaves; may kill entire leaves and reduce yield significantly.",
+    "causes": "Fungus Exserohilum turcicum; overwinters in crop residue; spreads via wind-borne conidia in cool, moist conditions.",
+    "treatment": "Fungicide applications (triazoles, strobilurins) at tasseling if disease is severe.",
+    "prevention": "Crop rotation; resistant hybrids; residue management."
+  }
+}

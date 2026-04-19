@@ -1,0 +1,20 @@
+{
+  "eppo_code": "FULVFU",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Fulvia fulva (FULVFU) Menu Overview \u2192 Photos Documents Overview Code created in: 2002-03-12 Basic information EPPO Code: FULVFU Preferred name: Fulvia fulva Authority: (Cooke) Ciferri Other scientific names Name Authority Cladosporium fulvum Cooke Mycovellosiella fulva (Cooke) von Arx Passalora fulva (Cooke) U. Braun & Crous Common names Name Language leaf mould of tomato English Braunfleckigkeit: Tomate German Samtfleckenkrankheit: Tomate German Samtfleckigkeit: Tomate German cladosporiose de la tomate French moisissure olive de la tomate French abigarrado del tomate Spanish cladosporiosis del tomate Spanish moho de la hoja del tomate Spanish pomidor\u0173 rudoji d\u0117m\u0117tlig\u0117 Lithuanian more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Dothideomycetidae      (\r\n      1DTHDL      ) Order Mycosphaerellales      (\r\n      1MYCPO      ) Family Mycosphaerellaceae      (\r\n      1MYCOF      ) Genus Fulvia      (\r\n      1FULVG      ) Species Fulvia fulva      (\r\n      FULVFU      )",
+  "plant_context": {
+    "crop": "Tomato",
+    "disease": "Leaf Mold",
+    "pathogen": "Passalora fulva"
+  },
+  "seed": {
+    "symptoms": "Pale green-yellow spots on upper leaf surface; olive-green to gray-brown velvety mold on lower surface; leaves curl and die.",
+    "causes": "Fungus Passalora fulva (syn. Cladosporium fulvum); primarily a greenhouse disease; requires high humidity (>85%) and poor ventilation.",
+    "treatment": "Fungicides (chlorothalonil, mancozeb); improve greenhouse ventilation; reduce humidity.",
+    "prevention": "Resistant varieties; maintain humidity below 85%; prune lower leaves; sterilize greenhouse between crops."
+  }
+}

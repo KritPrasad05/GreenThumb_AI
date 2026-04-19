@@ -1,0 +1,20 @@
+{
+  "eppo_code": "ALTESO",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Alternaria solani (ALTESO) Menu Overview \u2192 Reporting Photos Documents Overview Code created in: 2002-02-01 Basic information EPPO Code: ALTESO Preferred name: Alternaria solani Authority: Sorauer Other scientific names Name Authority Alternaria porri f. sp. solani Neerg\u00e5rd Macrosporium solani Ellis & G.Martin Common names Name Language early blight of eggplant English early blight of potato English Blattfleckenkrankheit: Eierfrucht German D\u00fcrrfleckenkrankheit: Kartoffel German Hartf\u00e4ule: Kartoffel German alternariose de la pomme de terre French alternariose des solanac\u00e9es French br\u00fblure alternarienne de la pomme de terre French tiz\u00f3n temprano Spanish tiz\u00f3n temprano de las papas Spanish \u0430\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0440\u0438\u043e\u0437 \u043a\u0430\u0440\u0442\u043e\u0444\u0435\u043b\u044f Russian alternarioza ziemniaka Polish pomidor\u0173 sauslig\u0117 Lithuanian more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Pleosporomycetidae      (\r\n      1PLEOL      ) Order Pleosporales      (\r\n      1PLEOO      ) Family Pleosporaceae      (\r\n      1PLEOF      ) Genus Alternaria      (\r\n      1ALTEG      ) Species Alternaria solani      (\r\n      ALTESO      )",
+  "plant_context": {
+    "crop": "Potato",
+    "disease": "Early blight",
+    "pathogen": "Alternaria solani"
+  },
+  "seed": {
+    "symptoms": "Dark brown concentric ring lesions with yellow halos on older leaves ('target board' pattern); premature defoliation.",
+    "causes": "Fungus Alternaria solani; thrives in warm weather with alternating wet/dry periods; overwinters in soil and debris.",
+    "treatment": "Fungicides (chlorothalonil, mancozeb, azoxystrobin) applied preventively at first symptom appearance.",
+    "prevention": "Crop rotation; destroy infected debris; adequate plant nutrition especially nitrogen; certified seed."
+  }
+}

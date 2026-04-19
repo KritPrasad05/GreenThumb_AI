@@ -1,0 +1,20 @@
+{
+  "eppo_code": "SEPTTR",
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "Your browser doesn't support JavaScript or you have disabled JavaScript.\r\nPlease enable JavaScript, then refresh this page. \r\nJavaScript is required on this site. Toggle navigation Zymoseptoria tritici (SEPTTR) Menu Overview \u2192 Photos Documents Overview Code created in: 2002-03-14 Basic information EPPO Code: SEPTTR Preferred name: Zymoseptoria tritici Authority: (Desmazi\u00e8res) Quaedvlieg & Crous Notes One of the top ten fungi in molecular plant pathology. Other scientific names Name Authority Mycosphaerella graminicola (Fuckel) Schr\u00f6ter Septoria graminum Desmazi\u00e8res Septoria tritici Berkeley & Curtis Common names Name Language leaf spot of wheat English septoria leaf blotch English septoria leaf spot English speckled leaf blotch of wheat English Blattd\u00fcrre: Weizen German Blattfleckenkrankheit: Weizen German Schwarzfleckigkeit: Weizen German Septoria-Blattd\u00fcrre German septoriose du bl\u00e9 French tache septorienne du bl\u00e9 French seca del trigo Spanish septoriosis del trigo Spanish svartpricksjuka Swedish \u0441\u0435\u043f\u0442\u043e\u0440\u0438\u043e\u0437 \u043f\u0448\u0435\u043d\u0438\u0446\u044b Russian hvedegr\u00e5plet Danish septorioza paskowana lisci Polish lap\u0173 septorioz\u0117 Lithuanian more photos... Taxonomy Kingdom Fungi      (\r\n      1FUNGK      ) Phylum Ascomycota      (\r\n      1ASCOP      ) Subphylum Pezizomycotina      (\r\n      1PEZIQ      ) Class Dothideomycetes      (\r\n      1DOTHC      ) Subclass Dothideomycetidae      (\r\n      1DTHDL      ) Order Mycosphaerellales      (\r\n      1MYCPO      ) Family Mycosphaerellaceae      (\r\n      1MYCOF      ) Genus Zymoseptoria      (\r\n      1ZYMSG      ) Species Zymoseptoria tritici      (\r\n      SEPTTR      )",
+  "plant_context": {
+    "crop": "Tomato",
+    "disease": "Septoria leaf spot",
+    "pathogen": "Septoria leaf spot"
+  },
+  "seed": {
+    "symptoms": "Small circular spots with dark brown margins, gray-white centers, and tiny black pycnidia on lower leaves first; rapid upward spread causing defoliation.",
+    "causes": "Fungus Septoria lycopersici; overwinters on infected debris and solanaceous weeds; spreads via rain splash during warm wet weather.",
+    "treatment": "Fungicides (chlorothalonil, mancozeb, copper) applied preventively every 7-10 days; remove infected lower leaves.",
+    "prevention": "Crop rotation; mulching to reduce splash; stake plants for airflow; destroy crop debris after harvest."
+  }
+}

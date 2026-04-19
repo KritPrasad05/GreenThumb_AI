@@ -1,0 +1,20 @@
+{
+  "eppo_code": null,
+  "taxon": null,
+  "names": null,
+  "hosts_api": null,
+  "categorization": null,
+  "hosts_web": [],
+  "overview_text": "",
+  "plant_context": {
+    "crop": "Orange",
+    "disease": "Haunglongbing (Citrus greening)",
+    "pathogen": "Candidatus Liberibacter asiaticus"
+  },
+  "seed": {
+    "symptoms": "Asymmetric yellowing of leaves (huanglongbing means 'yellow dragon disease'); small, lopsided, bitter fruit; twig dieback; tree decline.",
+    "causes": "Bacterial pathogen Candidatus Liberibacter asiaticus; transmitted by Asian citrus psyllid (Diaphorina citri); no cure once infected.",
+    "treatment": "No cure; remove and destroy infected trees; control psyllid vector with insecticides.",
+    "prevention": "Use certified disease-free planting material; apply systemic insecticides to control psyllid; install wind barriers; quarantine measures."
+  }
+}
