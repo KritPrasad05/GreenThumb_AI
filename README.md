@@ -255,7 +255,7 @@ GreenThumb_AI/
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/GreenThumb_AI.git
+git clone https://github.com/KritPrasad05/GreenThumb_AI.git
 cd GreenThumb_AI
 ```
 
