@@ -3,6 +3,7 @@
 ### Knowledge-Verified Visual Diagnosis for Plant Disease Detection
 
 *A Research System Combining EfficientNet-B0 with Retrieval-Augmented Generation*
+Paper: [Click here!!](https://github.com/KritPrasad05/GreenThumb_AI/tree/master/Research_Paper)
 
 ---
 
